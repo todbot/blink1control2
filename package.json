@@ -1,6 +1,6 @@
 {
   "name": "Blink1Control2",
-  "version": "2.2.9",
+  "version": "2.3.0",
   "author": "ThingM <blink1@thingm.com> (https://blink1.thingm.com/)",
   "description": "Blink1Control2 GUI app for blink(1) devices",
   "keywords": [

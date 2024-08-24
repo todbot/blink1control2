@@ -86,10 +86,11 @@ var MqttService = {
               self.errorLogged = true;
             });
             client.on('message', function (topic, message) {
-                self.parse(rule, message.toString());    // message is Buffer, thus .toString()
-                // Eventer.addStatus( {type:'trigger', source:rule.type, id:rule.name, text:message.toString()} );
-                Eventer.addStatus( {type:'info', source:rule.type, id:rule.name, text:message.toString()} );
-                log.msg("MqttService: message: topic:", topic, "message:",message.toString());
+              log.msg("MqttService: message: topic:", topic, "message:",message.toString());
+              // parse() will fill out Eventer.addStatus() for us
+              self.parse(rule, message.toString());  // message is Buffer, thus .toString()
+              // Eventer.addStatus( {type:'trigger', source:rule.type, id:rule.name, text:message.toString()} );
+              //Eventer.addStatus( {type:'info', source:rule.type, id:rule.name, text:message.toString()} );
             });
             rule.client = client;
         });
@@ -114,6 +115,7 @@ var MqttService = {
     },
 
     /**
+     * (FIXME: Copied from scriptService.parse(), pull these out into single common one)
      * Parse the output from a MQTT response.
      * Plays patterns if match.
      * Sends log messages with source & id of rule.
@@ -172,7 +174,11 @@ var MqttService = {
                         Eventer.addStatus( {type:'error', source:rule.type, id:rule.name, text:'invalid color '+json.color});
                     }
                 }
+                else {
+
+                }
             } catch(error) {
+                log.msg("error:", error)
                 Eventer.addStatus( {type:'error', source:rule.type, id:rule.name, text:error.message});
             }
         }
