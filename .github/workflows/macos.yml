@@ -32,6 +32,11 @@ jobs:
       - name: Setup prerequisites
         run: echo "no prereqs to set up"
 
+      - name: Setup Python
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
       - name: Install Node.js and NPM
         uses: actions/setup-node@v3
         with:
@@ -65,8 +70,8 @@ jobs:
         run: |
           npm run dist
 
-#      - name: Check files
-#        run: ls -alR --ignore=\.git --ignore=node_modules
+      #      - name: Check files
+      #        run: ls -alR --ignore=\.git --ignore=node_modules
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
@@ -81,4 +86,3 @@ jobs:
             dist/Blink1Control2*exe
             dist/Blink1Control2*blockmap
             dist/latest*yml
-
