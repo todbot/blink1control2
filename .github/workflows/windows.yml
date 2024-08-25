@@ -34,17 +34,17 @@ jobs:
           node-version: 16
           cache: npm
 
-      - name: Codesign setup for Windows
-        #if: matrix.os == 'windows-latest' && startsWith(github.ref, 'refs/tags/')
-        id: write_file
-        uses: timheuer/base64-to-file@v1.1
-        with:
-          fileName: "win-cert.p12"
-          encodedString: ${{ secrets.WINDOWS_CERTIFICATE_P12 }}
+      # - name: Codesign setup for Windows
+      #   #if: matrix.os == 'windows-latest' && startsWith(github.ref, 'refs/tags/')
+      #   id: write_file
+      #   uses: timheuer/base64-to-file@v1.1
+      #   with:
+      #     fileName: "win-cert.p12"
+      #     encodedString: ${{ secrets.WINDOWS_CERTIFICATE_P12 }}
 
       - name: Build
         run: |
-          $env:CSC_LINK="${{ steps.write_file.outputs.filePath }}"
+      #  $env:CSC_LINK="${{ steps.write_file.outputs.filePath }}"
           npm install --save-dev cross-env
           npm install
           npm run pack
@@ -52,8 +52,8 @@ jobs:
 
       - name: Publish
         continue-on-error: true
-        if: "contains(github.event.head_commit.message, '[publish]')"
         #if: (github.event_name == 'release')  # or values = 'push' or 'pull_request'
+        if: "contains(github.event.head_commit.message, '[publish]')"
         run: |
           $env:CSC_LINK="${{ steps.write_file.outputs.filePath }}"
           npm run dist
