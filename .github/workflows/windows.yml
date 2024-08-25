@@ -44,7 +44,7 @@ jobs:
 
       - name: Build
         run: |
-      #  $env:CSC_LINK="${{ steps.write_file.outputs.filePath }}"
+          # $env:CSC_LINK="${{ steps.write_file.outputs.filePath }}"
           npm install --save-dev cross-env
           npm install
           npm run pack
