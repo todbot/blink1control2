@@ -10,7 +10,7 @@ on:
   pull_request:
   #release:
   #  types: [created]
-    #types: [published]  # publish a draft release to set github.event_name = 'release'
+  #types: [published]  # publish a draft release to set github.event_name = 'release'
 
 jobs:
   # This workflow contains a single job called "build"
@@ -28,6 +28,11 @@ jobs:
           echo "event name: ${{ github.event_name }}"
           sudo apt update
           sudo apt install pkg-config libudev-dev libusb-1.0-0-dev
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
 
       - name: Install Node.js and NPM
         uses: actions/setup-node@v3
